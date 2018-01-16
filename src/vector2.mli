@@ -1,1 +1,0 @@
-type t = Vector2 of float * float
