@@ -1,3 +1,5 @@
+(* TU NIE MA NIC CIEKAWEGO *)
+
 (* simple parser
 ocamlbuild -I src parser.byte && ./parser.byte*)
 

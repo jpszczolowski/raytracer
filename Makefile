@@ -1,10 +1,10 @@
 OCB_FLAGS = -I src
 OCB = ocamlbuild $(OCB_FLAGS)
 
-all: byte
+all: native
 
-byte:
-	$(OCB) main.byte
+native:
+	$(OCB) main.native
 
 clean:
 	$(OCB) -clean
