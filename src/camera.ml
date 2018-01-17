@@ -1,0 +1,3 @@
+class camera = object
+
+end
