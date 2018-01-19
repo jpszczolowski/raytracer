@@ -1,19 +1,19 @@
 open Vector
 open Ray
 
-class virtual shape (position : vector) = object
+class virtual collider (position : vector) = object
   val position = position
   method private position = position
 
   (* list of intersection points with a ray *)
-  method virtual intersection : ray -> vector list 
+  method virtual intersection : ray -> vector list
 
   (* normal vector to a shape in given point *)
   method virtual normal : vector -> vector
 end
 
-class sphere (position : vector) (radius : float) = object(self)
-  inherit shape position
+class sphere_collider (position : vector) (radius : float) = object(self)
+  inherit collider position
 
   val radius = radius
   method private radius = radius
@@ -25,17 +25,17 @@ class sphere (position : vector) (radius : float) = object(self)
     let a = ray#direction#dot ray#direction in
     let b = 2. *. (ray#direction#dot org_minus_pos) in
     let c = (org_minus_pos#dot org_minus_pos) -. self#radius in
-      Helper.list_mult_plus ray#direction ray#origin (Helper.quadratic_equation_roots a b c) 
+      Helper.list_mult_plus ray#direction ray#origin (Helper.quadratic_equation_roots a b c)
 end
 
 (* position is point on the plane and normal is normal vector to this plane *)
-class plane (position : vector) (normal : vector) = object(self)
-  inherit shape position
-  
+class plane_collider (position : vector) (normal : vector) = object(self)
+  inherit collider position
+
   val normal = normal#normalize
   method normal _ = normal
 
-  method intersection (ray : ray) = 
+  method intersection (ray : ray) =
     let d_denominator = ray#direction#dot (self#normal self#position) in
     if d_denominator = 0. then []
     else

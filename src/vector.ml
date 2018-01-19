@@ -1,7 +1,7 @@
 class vector (x : float) (y : float) (z : float) = object(self)
   val x = x
   method x = x
-  
+
   val y = y
   method y = y
 

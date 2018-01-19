@@ -1,12 +1,11 @@
-open Shape
+open Collider
 open Shader
 
-class object3D (shape : shape) (shader : shader) = object
-  val shape = shape
-  method intersection = shape#intersection
-  method normal = shape#normal
+class object3D (collider : collider) (shader : shader) = object
+  val collider = collider
+  method intersection = collider#intersection
+  method normal = collider#normal
 
   val shader = shader
-  
-
+  method color = shader#color
 end
