@@ -5,6 +5,4 @@ class camera (position : vector) (resolution_x : int) (resolution_y : int) (pixe
   val resolution_x = resolution_x
   val resolution_y = resolution_y
   val pixel_size = pixel_size
-
-  
 end

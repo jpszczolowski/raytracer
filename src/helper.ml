@@ -7,9 +7,7 @@ let quadratic_equation_roots a b c =
   if delta = 0. then [-. b /. denominator] else
                      [(-. b -. Pervasives.sqrt delta) /. denominator; (-. b +. Pervasives.sqrt delta) /. denominator]
 
-let rec list_mult_plus (a : vector) (b : vector) = function
-  | [] -> []
-  | h::t -> ((a#mult h)#plus b)::list_mult_plus a b t
+let rec list_mult_plus (a : vector) (b : vector) = List.map (fun e -> ((a#mult e)#plus b))
 
 let print_vector (v : vector) =
   print_string "("; print_float v#x; print_string ", ";

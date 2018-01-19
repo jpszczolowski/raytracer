@@ -3,9 +3,10 @@ open Shader
 
 class object3D (collider : collider) (shader : shader) = object
   val collider = collider
-  method intersection = collider#intersection
-  method normal = collider#normal
+  method collider = collider
 
   val shader = shader
-  method color = shader#color
+
+  method intersection = collider#intersection
+  method color point = shader#color point (collider#normal point)
 end

@@ -1,11 +1,11 @@
 open Vector
 
-(* r g b are floats from 0. to 255. *)
 class color (r : float) (g: float) (b: float) = object
-  (* but here from 0. to 1. *)
-  val r = r /. 255.
-  val g = g /. 255.
-  val b = b /. 255.
+  val rgb : vector = new vector r g b
+  method rgb = rgb
+
+  method sum (other : color) = let v = rgb#plus other#rgb in new color v#x v#y v#z
+  method mult (other : float) = let v = rgb#mult other in new color v#x v#y v#z
 end
 
 let color_pink = new color 255. 192. 203.
