@@ -17,3 +17,8 @@ let print_vector (v : vector) =
 let rec print_vector_list = function
   | [] -> ()
   | h::t -> print_vector h; print_string " "; print_vector_list t
+
+let rec range a b = if a >= b then [] else a::range (a + 1) b
+
+let rec range2D x_from x_to y_from y_to =
+  List.fold_left List.rev_append [] @@ List.map (fun x -> List.map (fun y -> (x, y)) @@ range y_from y_to) (range x_from x_to)

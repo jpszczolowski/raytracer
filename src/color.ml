@@ -6,6 +6,9 @@ class color (r : float) (g: float) (b: float) = object
 
   method sum (other : color) = let v = rgb#plus other#rgb in new color v#x v#y v#z
   method mult (other : float) = let v = rgb#mult other in new color v#x v#y v#z
+  method to_graphics_color =
+    let fti = Pervasives.int_of_float in
+    Graphics.rgb (fti rgb#x) (fti rgb#y) (fti rgb#z)
 end
 
 let color_pink = new color 255. 192. 203.
