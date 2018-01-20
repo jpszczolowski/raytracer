@@ -7,17 +7,17 @@ open Vector
 open Light
 open Object3D
 
-let collider = new sphere_collider (new vector 1. 0. 10.) 3.;;
-let shader = new diffuse color_gold
+let collider1 = new sphere_collider (new vector 1. 1. 50.) 3.;;
+let shader1 = new diffuse color_gold
 
-let object3D = new object3D collider shader
-let object3D_list = [object3D]
+let object3D1 = new object3D collider1 shader1
+let object3D_list = [object3D1]
 let collider_list = List.map (fun (o : object3D) -> o#collider) object3D_list
 
-let light = new pointlight (new vector 0. 0. 0.) 42.
+let light = new pointlight (new vector 0.5 0.5 0.1) 1.
 let light_list = [light]
 
-let camera = new camera 0. 0. 1000 500 0.1 1.
+let camera = new camera 0. 0. 500 500 0.01 1. object3D_list collider_list light_list
 
 let () = Graphics.set_window_title "Raytracer";
          Graphics.open_graph @@

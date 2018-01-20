@@ -17,3 +17,4 @@ let color_green = new color 0. 201. 87.
 let color_gold = new color 255. 215. 0.
 let color_seashell = new color 238. 229. 222.
 let color_tomato = new color 238. 92. 66.
+let color_black = new color 0. 0. 0.
