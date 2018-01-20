@@ -9,5 +9,5 @@ end
 class pointlight (position : vector) (intensity : float) = object
   inherit light position intensity
 
-  method intensity (point : vector) = intensity /. (position#dist2 point)
+  method intensity (point : vector) = 700. *. intensity /. (position#dist2 point)
 end

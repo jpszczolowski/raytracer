@@ -31,7 +31,8 @@ class camera (position_x : float) (position_y : float) (resolution_x : int)
     center#plus @@ new vector 0. 0. focal_length
 
   method private ray_to_focus (x : int) (y : int) =
-    new ray (self#pixel_location x y) self#focus_location
+    let origin = self#pixel_location x y in
+    new ray origin (self#focus_location#minus origin)
 
   method private color (x : int) (y : int) =
     let point_and_dist_from_obj obj =
@@ -58,5 +59,6 @@ class camera (position_x : float) (position_y : float) (resolution_x : int)
 
   method plot (pixel : int * int) =
     let x, y = pixel in
-    Graphics.set_color (self#color x y)#to_graphics_color; Graphics.plot x y
+    let mirror_x = resolution_x - x - 1 and mirror_y = resolution_y - y - 1 in
+    Graphics.set_color (self#color mirror_x mirror_y)#to_graphics_color; Graphics.plot x y
 end
