@@ -25,7 +25,7 @@ class sphere_collider (position : vector) (radius : float) = object(self)
     let a = ray#direction#dot ray#direction in
     let b = 2. *. (ray#direction#dot org_minus_pos) in
     let c = (org_minus_pos#dot org_minus_pos) -. self#radius in
-      Helper.list_mult_plus ray#direction ray#origin (Helper.quadratic_equation_roots a b c)
+    Helper.list_mult_plus ray#direction ray#origin (Helper.quadratic_equation_roots a b c)
 end
 
 (* position is point on the plane and normal is normal vector to this plane *)
@@ -41,5 +41,5 @@ class plane_collider (position : vector) (normal : vector) = object(self)
     else
       let d_nominator = (self#position#minus ray#origin)#dot (self#normal self#position) in
       let d = d_nominator /. d_denominator in
-        Helper.list_mult_plus ray#direction ray#origin [d]
+      Helper.list_mult_plus ray#direction ray#origin [d]
 end

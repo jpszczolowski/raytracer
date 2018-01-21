@@ -57,8 +57,10 @@ class camera (position_x : float) (position_y : float) (resolution_x : int)
       | _, _, None -> color_black
       | obj, point, _ -> obj#color point collider_list light_list
 
-  method plot (pixel : int * int) =
+  method plot_and_draw (pixel : int * int) (image : Image.image) =
     let x, y = pixel in
     let mirror_x = resolution_x - x - 1 and mirror_y = resolution_y - y - 1 in
-    Graphics.set_color (self#color mirror_x mirror_y)#to_graphics_color; Graphics.plot x y
+    let r, g, b = (self#color mirror_x mirror_y)#get_color in
+    Graphics.set_color @@ Graphics.rgb r g b; Graphics.plot x y;
+    Image.write_rgb image x mirror_y r g b
 end

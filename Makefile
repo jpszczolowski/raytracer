@@ -1,4 +1,4 @@
-OCB_FLAGS = -I src -package graphics
+OCB_FLAGS = -I src -package graphics -package imagelib
 OCB = ocamlbuild $(OCB_FLAGS)
 
 all: native
