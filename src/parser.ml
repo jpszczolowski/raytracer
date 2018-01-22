@@ -88,9 +88,10 @@ let object3D4 = new object3D collider4 shader4
 let object3D_list = [object3D1; object3D2; object3D3; object3D4]
 let collider_list = List.map (fun (o : object3D) -> o#collider) object3D_list
 
-let light1 = new pointlight (new vector 10.0 (-5.0) (-3.)) 0.3
-let light2 = new pointlight (new vector (-10.) 0.5 6.) 0.07
-let light_list = [light1; light2]
+let light1 = new pointlight 0.3 (new vector 10.0 (-5.0) (-3.))
+let light2 = new pointlight 0.07 (new vector (-10.) 0.5 6.)
+let light3 = new directionallight 1. (new vector (-1.) (-1.) 1.)
+let light_list = [light1]
 
 let get_camera () =
   let camera = new camera
