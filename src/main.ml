@@ -1,6 +1,4 @@
-let () = Parser.parse "scene.json"
-
-let camera = Parser.get_camera ()
+let camera = Parser.parse "scene.json"
 
 let () = Graphics.set_window_title "Raytracer";
          Graphics.open_graph @@
