@@ -24,3 +24,7 @@ let rec range2D x_from x_to y_from y_to =
   List.fold_left List.rev_append [] @@ List.map (fun x -> List.map (fun y -> (x, y)) @@ range y_from y_to) (range x_from x_to)
 
 let percent a b = (Pervasives.float_of_int a /. Pervasives.float_of_int b) *. 100.
+
+let get a = match a with
+  | Some x -> x
+  | None -> failwith "Failed to get value from option."

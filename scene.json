@@ -1,0 +1,13 @@
+{
+    "camera": {
+        "bottom_left_x": -0.5,
+        "bottom_left_y": -0.5,
+        "upper_right_x": 1.1,
+        "upper_right_y": 0.7,
+        "resolution_x": 800,
+        "resolution_y": 600,
+        "focal_length": 0.7
+    },
+    "lights" : [],
+    "objects": []
+}
