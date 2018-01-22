@@ -7,7 +7,8 @@ let quadratic_equation_roots a b c =
   if delta = 0. then [-. b /. denominator] else
                      [(-. b -. Pervasives.sqrt delta) /. denominator; (-. b +. Pervasives.sqrt delta) /. denominator]
 
-let rec list_mult_plus (a : vector) (b : vector) = List.map (fun e -> ((a#mult e)#plus b))
+let rec intersection_mult_plus (a : vector) (b : vector) l =
+  List.filter (fun v -> v#z > 0.) @@ List.map (fun e -> ((a#mult e)#plus b)) l
 
 let print_vector (v : vector) =
   print_string "("; print_float v#x; print_string ", ";

@@ -15,7 +15,7 @@ class pointlight (intensity : float) (position : vector) = object
 
   val position = position
 
-  method intensity (point : vector) = 700. *. intensity /. (position#dist2 point)
+  method intensity (point : vector) = 500. *. intensity /. (position#dist2 point)
   method vector_from (point : vector) = position#minus point
 end
 

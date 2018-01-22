@@ -1,6 +1,7 @@
 open Collider
 open Shader
 
+(* a container for collider and shader *)
 class object3D (collider : collider) (shader : shader) = object
   val collider = collider
   val shader = shader

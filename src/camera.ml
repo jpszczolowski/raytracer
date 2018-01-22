@@ -34,6 +34,7 @@ class camera (bottom_left_x : float) (bottom_left_y : float) (upper_right_x : fl
     let origin = self#pixel_location x y in
     new ray origin (self#focus_location#minus origin)
 
+  (* get pixel color for plot_and_draw method *)
   method private color (x : int) (y : int) =
     let point_and_dist_from_obj obj =
       match obj#collider#intersection (self#ray_to_focus x y) with

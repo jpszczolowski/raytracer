@@ -1,3 +1,5 @@
+let epsilon = 1e-4
+
 class vector (x : float) (y : float) (z : float) = object(self)
   val x = x
   method x = x
@@ -17,4 +19,6 @@ class vector (x : float) (y : float) (z : float) = object(self)
   method mult (other : float) = new vector (self#x *. other) (self#y *. other) (self#z *. other)
   method cos (other : vector) = self#normalize#dot other#normalize
   method dist2 (other : vector) = (self#minus other)#length2
+  method dist (other : vector) = Pervasives.sqrt (self#minus other)#length2
+  method equal (other : vector) = (self#minus other)#length < epsilon
 end

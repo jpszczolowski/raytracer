@@ -1,6 +1,10 @@
 # raytracer
 A raytracer written in OCaml. It can draw planes and spheres with diffuse- or mirror-like surface and illuminate them with point & directional light.
 
+
+### Example rendered scene
+![Example rendered scene](rendered.png)
+
 ### Dependencies
 ```
 $ opam install imagelib
@@ -17,7 +21,8 @@ You can set camera position, objects & lights in file `scene.json`. Feel free to
 
 Order of keys at this and lower levels of JSON matters and must be the same as in this specification.
 
-First level of must have three keys: `camera`, `objects`, `lights`.
+First level must have three keys: `camera`, `objects`, `lights`.
+
 #### 1. Camera
 A list of seven values:
 - `bottom_left_x : float`

@@ -17,7 +17,7 @@ let () =
     done
   done; Printf.printf "Rendering done.\n"
 
-let () = ImagePNG.write_png "raytracer.png" image;
-         Printf.printf "Image saved to file 'raytracer.png'.\n"
+let () = ImagePNG.write_png "rendered.png" image;
+         Printf.printf "Image saved to file 'rendered.png'.\n"
 
 let () = ignore @@ read_line ()

@@ -1,31 +1,45 @@
 {
-    "camera": [-0.5, -0.5, 1.1, 0.7, 800, 600, 0.7],
-    "objects": [{
-        "type": "plane",
-        "color": "blue",
-        "shader": "diffuse",
-        "data": [0.0, 0.0, 15.0, 0.0, 0.0, -1.0]
-    }, {
-        "type": "plane",
-        "color": "seashell",
-        "shader": "diffuse",
-        "data": [0.0, -2.5, 10.0, 0.0, 2.0, -1.0]
-    }, {
-        "type": "sphere",
-        "color": "gold",
-        "shader": "diffuse",
-        "data": [1.5, 0.5, 5.0, 1.0]
-    }, {
-        "type": "sphere",
-        "color": "tomato",
-        "shader": "diffuse",
-        "data": [-0.5, 0.5, 4.0, 0.2]
-    }],
-    "lights" : [{
-        "type": "point",
-        "data": [0.3, 10.0, -5.0, -3.0]
-    }, {
-        "type": "directional",
-        "data": [0.2, -1.0, -1.0, 1.0]
-    }]
+    "camera": [0.0, 1.0, 1.6, 2.2, 800, 600, 0.8],
+    "objects": [
+        {
+            "type": "plane",
+            "color": "seashell",
+            "shader": "diffuse",
+            "data": [0.0, 0.0, 30.0, 0.0, -0.4, -1.0]
+        },
+        {
+            "type": "plane",
+            "color": "seashell",
+            "shader": "diffuse",
+            "data": [0.0, -5.0, 15.0, 0.0, 1.0, 0.0]
+        },
+        {
+            "type": "sphere",
+            "color": "gold",
+            "shader": "diffuse",
+            "data": [-3.0, 1.0, 15.0, 2.5]
+        },
+        {
+            "type": "sphere",
+            "color": "tomato",
+            "shader": "diffuse",
+            "data": [1.0, 0.0, 10.0, 2.0]
+        },
+        {
+            "type": "sphere",
+            "color": "green",
+            "shader": "diffuse",
+            "data": [6.0, 4.0, 15.0, 5.0]
+        }
+    ],
+    "lights" : [
+        {
+            "type": "point",
+            "data": [0.7, 0.0, 20.0, 0.0]
+        }
+        // {
+        //     "type": "directional",
+        //     "data": [0.4, -1.0, -1.0, 1.0]
+        // }
+    ]
 }
