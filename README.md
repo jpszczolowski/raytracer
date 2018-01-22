@@ -18,7 +18,7 @@ You can set camera position, objects & lights in file `scene.json`. Feel free to
 Order of keys at this and lower levels of JSON matters and must be the same as in this specification.
 
 First level of must have three keys: `camera`, `objects`, `lights`.
-##### 1. Camera
+#### 1. Camera
 A list of seven values:
 - `bottom_left_x : float`
 - `bottom_left_y : float`
@@ -30,7 +30,7 @@ A list of seven values:
 
 Camera is a rectangle on a plane `Z=0`, looking towards vector `(0, 0, 1)`, i.e. looking towards `Z+`. You can set positon of this rectangle (its bottom left and upper right corners), resolution and focal length. The latter is the distance between camera and focus (point through which all the rays from pixels go).
 
-##### 2. Objects
+#### 2. Objects
 A list of JSON objects, each has the following keys:
 - `type`, either `sphere` or `plane`
 - `color`, one of the following values: `pink`, `blue`, `green`, `gold`, `seashell`, `tomato`, `black`, `white`, `orchid`, `olive`
@@ -53,7 +53,7 @@ Data for `plane` is a six element list containing:
 
 As plane is given by a point and a normal vector to the plane.
 
-##### 3. Lights
+#### 3. Lights
 A list of JSON objects, each has the following keys:
 - `type`, either `point` or `directional`
 - `data`, a four element list of floats, depending on light type
