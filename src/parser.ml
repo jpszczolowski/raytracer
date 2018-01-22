@@ -30,18 +30,17 @@ let parse_string (json : Yojson.Basic.json) = match json with
   | `String s -> s
   | _ -> failwith parse_error_msg
 
-let parse_camera (json : Yojson.Basic.json) =
-  match json with
-    | `List [blx; bly; urx; ury; rx; ry; fl] -> {
-        bottom_left_x = parse_float blx;
-        bottom_left_y = parse_float bly;
-        upper_right_x = parse_float urx;
-        upper_right_y = parse_float ury;
-        resolution_x = parse_int rx;
-        resolution_y = parse_int ry;
-        focal_length = parse_float fl
-      }
-    | _ -> failwith parse_error_msg
+let parse_camera (json : Yojson.Basic.json) = match json with
+  | `List [blx; bly; urx; ury; rx; ry; fl] -> {
+      bottom_left_x = parse_float blx;
+      bottom_left_y = parse_float bly;
+      upper_right_x = parse_float urx;
+      upper_right_y = parse_float ury;
+      resolution_x = parse_int rx;
+      resolution_y = parse_int ry;
+      focal_length = parse_float fl
+    }
+  | _ -> failwith parse_error_msg
 
 let parse_pointlight (json : Yojson.Basic.json) = match json with
   | `List [intensity; pos_x; pos_y; pos_z] ->
