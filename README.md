@@ -1,5 +1,5 @@
 # raytracer
-A raytracer written in OCaml. It can draw planes and spheres with diffuse- or mirror-like surface and illuminate them with point & directional light.
+A raytracer written in OCaml. It can draw planes and spheres with diffuse-like surface and illuminate them with point & directional light.
 
 
 ### Example rendered scene
@@ -39,7 +39,7 @@ Camera is a rectangle on a plane `Z=0`, looking towards vector `(0, 0, 1)`, i.e.
 A list of JSON objects, each has the following keys:
 - `type`, either `sphere` or `plane`
 - `color`, one of the following values: `pink`, `blue`, `green`, `gold`, `seashell`, `tomato`, `black`, `white`, `orchid`, `olive`
-- `shader`, either `diffuse` or `mirror` **TODO**
+- `shader`, as for now only `diffuse`
 - `data`, a list of floats, depending on object type
 
 Data for `sphere` is a four element list containing:
@@ -77,4 +77,4 @@ Data for `directional` is list containing:
 - `direction_y : float`
 - `direction_z : float`
 
-Directional light behaves like the Sun, i.e. it has constant intensity and its source is given by a direction, not a particular point.
+Directional light behaves like the Sun, i.e. it has constant intensity and its source is given by a direction, not by any particular point.
