@@ -1,5 +1,14 @@
 {
     "camera": [-0.5, -0.5, 1.1, 0.7, 800, 600, 0.7],
-    "lights" : [],
-    "objects": []
+    "objects": [],
+    "lights" : [
+        {
+            "type": "point",
+            "data": [0.3, 10.0, -5.0, -3.0]
+        },
+        {
+            "type": "directional",
+            "data": [0.2, -1.0, -1.0, 1.0]
+        }
+    ]
 }

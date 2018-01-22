@@ -6,6 +6,8 @@ open Color
 open Light
 open Object3D
 
+let parse_error_msg = "Parsing failed."
+
 type camera_data_t = {
   bottom_left_x : float;
   bottom_left_y : float;
@@ -18,46 +20,67 @@ type camera_data_t = {
 
 let parse_float (json : Yojson.Basic.json) = match json with
   | `Float f -> f
-  | _ -> failwith "Parsing failed."
+  | _ -> failwith parse_error_msg
 
 let parse_int (json : Yojson.Basic.json) = match json with
   | `Int i -> i
-  | _ -> failwith "Parsing failed."
+  | _ -> failwith parse_error_msg
+
+let parse_string (json : Yojson.Basic.json) = match json with
+  | `String s -> s
+  | _ -> failwith parse_error_msg
 
 let parse_camera (json : Yojson.Basic.json) =
   match json with
-    | `List l -> (match l with
-      | [blx; bly; urx; ury; rx; ry; fl] -> {
-          bottom_left_x = parse_float blx;
-          bottom_left_y = parse_float bly;
-          upper_right_x = parse_float urx;
-          upper_right_y = parse_float ury;
-          resolution_x = parse_int rx;
-          resolution_y = parse_int ry;
-          focal_length = parse_float fl
-        }
-      | _ -> failwith "Paring failed.")
-    | _ -> failwith "Parsing failed."
+    | `List [blx; bly; urx; ury; rx; ry; fl] -> {
+        bottom_left_x = parse_float blx;
+        bottom_left_y = parse_float bly;
+        upper_right_x = parse_float urx;
+        upper_right_y = parse_float ury;
+        resolution_x = parse_int rx;
+        resolution_y = parse_int ry;
+        focal_length = parse_float fl
+      }
+    | _ -> failwith parse_error_msg
 
-let parse_lights json = 42
+let parse_pointlight (json : Yojson.Basic.json) = match json with
+  | `List [intensity; pos_x; pos_y; pos_z] ->
+    new pointlight
+      (parse_float intensity) @@
+      new vector
+        (parse_float pos_x)
+        (parse_float pos_y)
+        (parse_float pos_z)
+  | _ -> failwith parse_error_msg
 
-let parse_objects json = 42
+let parse_directionallight (json : Yojson.Basic.json) = match json with
+  | `List [intensity; dir_x; dir_y; dir_z] ->
+    new directionallight
+      (parse_float intensity) @@
+      new vector
+        (parse_float dir_x)
+        (parse_float dir_y)
+        (parse_float dir_z)
+  | _ -> failwith parse_error_msg
 
-let parse_start (json : Yojson.Basic.json) =
-  let camera_data = ref None in
-  let objects = ref None in
-  let lights = ref None in
-  (match json with
-    | `Assoc l ->
-      let process (name, content) =
-      match name with
-        | "camera" -> camera_data := Some (parse_camera content)
-        | "lights" -> lights := Some (parse_lights content)
-        | "objects" -> objects := Some (parse_objects)
-        | _ -> failwith "Parsing failed."
-      in List.iter process l
-    | _ -> failwith "Parsing failed.");
-    Helper.get !camera_data, Helper.get !objects, Helper.get !lights
+let parse_light (json : Yojson.Basic.json) = match json with
+  | `Assoc [("type", lighttype); ("data", data)] ->
+    (match parse_string lighttype with
+      | "point" -> parse_pointlight data
+      | "directional" -> parse_directionallight data
+      | _ -> failwith parse_error_msg)
+  | _ -> failwith parse_error_msg
+
+let parse_lights (json : Yojson.Basic.json) = match json with
+  | `List l -> List.map parse_light l
+  | _ -> failwith parse_error_msg
+
+let parse_objects (json : Yojson.Basic.json) = 42
+
+let parse_start (json : Yojson.Basic.json) = match json with
+  | `Assoc [("camera", cam_json); ("objects", objs_json); ("lights", lights_json)] ->
+      parse_camera cam_json, parse_objects objs_json, parse_lights lights_json
+  | _ -> failwith parse_error_msg
 
 let collider1 = new plane_collider (new vector 0. 0. 15.) (new vector 0. 0. (-1.))
 let shader1 = new diffuse color_blue
@@ -79,11 +102,6 @@ let object3D4 = new object3D collider4 shader4
 let object3D_list = [object3D1; object3D2; object3D3; object3D4]
 let collider_list = List.map (fun (o : object3D) -> o#collider) object3D_list
 
-let light1 = new pointlight 0.3 (new vector 10.0 (-5.0) (-3.))
-let light2 = new pointlight 0.07 (new vector (-10.) 0.5 6.)
-let light3 = new directionallight 1. (new vector (-1.) (-1.) 1.)
-let light_list = [light1]
-
 let parse ~filename:filename =
   let scene_json = Yojson.Basic.from_file filename in
   let camera_data, objects, lights = parse_start scene_json in
@@ -97,5 +115,5 @@ let parse ~filename:filename =
     camera_data.focal_length
     object3D_list
     (List.map (fun o -> o#collider) object3D_list )
-    light_list
+    lights
   in camera
