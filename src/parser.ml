@@ -75,36 +75,67 @@ let parse_lights (json : Yojson.Basic.json) = match json with
   | `List l -> List.map parse_light l
   | _ -> failwith parse_error_msg
 
-let parse_objects (json : Yojson.Basic.json) = 42
+let parse_color (json : Yojson.Basic.json) = match parse_string json with
+  | "pink" -> color_pink
+  | "blue" -> color_blue
+  | "green" -> color_green
+  | "gold" -> color_gold
+  | "seashell" -> color_seashell
+  | "tomato" -> color_tomato
+  | "black" -> color_black
+  | "white" -> color_white
+  | "orchid" -> color_orchid
+  | "olive" -> color_olive
+  | _ -> failwith parse_error_msg
 
-let parse_start (json : Yojson.Basic.json) = match json with
+let parse_sphere_collider (json : Yojson.Basic.json) = match json with
+  | `List [pos_x; pos_y; pos_z; r] ->
+    new sphere_collider
+      (new vector
+        (parse_float pos_x)
+        (parse_float pos_y)
+        (parse_float pos_z))
+      (parse_float r)
+  | _ -> failwith parse_error_msg
+
+let parse_plane_collider (json : Yojson.Basic.json) = match json with
+  | `List [pos_x; pos_y; pos_z; norm_x; norm_y; norm_z] ->
+    new plane_collider
+      (new vector
+        (parse_float pos_x)
+        (parse_float pos_y)
+        (parse_float pos_z))
+      (new vector
+        (parse_float norm_x)
+        (parse_float norm_y)
+        (parse_float norm_z))
+  | _ -> failwith parse_error_msg
+
+let parse_object (json : Yojson.Basic.json) = match json with
+  | `Assoc [("type", _objtype); ("color", _color); ("shader", _shader); ("data", _data)] ->
+    let color = parse_color _color in
+    let shader = match parse_string _shader with
+      | "diffuse" -> new diffuse color
+      | _ -> failwith parse_error_msg in
+    let collider = match parse_string _objtype with
+      | "sphere" -> parse_sphere_collider _data
+      | "plane" -> parse_plane_collider _data
+      | _ -> failwith parse_error_msg
+    in new object3D collider shader
+  | _ -> failwith parse_error_msg
+
+let parse_objects (json : Yojson.Basic.json) = match json with
+  | `List l -> List.map parse_object l
+  | _ -> failwith parse_error_msg
+
+let parse_all (json : Yojson.Basic.json) = match json with
   | `Assoc [("camera", cam_json); ("objects", objs_json); ("lights", lights_json)] ->
       parse_camera cam_json, parse_objects objs_json, parse_lights lights_json
   | _ -> failwith parse_error_msg
 
-let collider1 = new plane_collider (new vector 0. 0. 15.) (new vector 0. 0. (-1.))
-let shader1 = new diffuse color_blue
-
-let collider2 = new sphere_collider (new vector 1.5 0.5 5.) 1.
-let shader2 = new diffuse color_gold
-
-let collider3 = new sphere_collider (new vector (-0.5) 0.5 4.) 0.2
-let shader3 = new diffuse color_tomato
-
-let collider4 = new plane_collider (new vector 0. (-2.5) 10.) (new vector 0. 2. (-1.))
-let shader4 = new diffuse color_seashell
-
-let object3D1 = new object3D collider1 shader1
-let object3D2 = new object3D collider2 shader2
-let object3D3 = new object3D collider3 shader3
-let object3D4 = new object3D collider4 shader4
-
-let object3D_list = [object3D1; object3D2; object3D3; object3D4]
-let collider_list = List.map (fun (o : object3D) -> o#collider) object3D_list
-
 let parse ~filename:filename =
   let scene_json = Yojson.Basic.from_file filename in
-  let camera_data, objects, lights = parse_start scene_json in
+  let camera_data, objects, lights = parse_all scene_json in
   let camera = new camera
     camera_data.bottom_left_x
     camera_data.bottom_left_y
@@ -113,7 +144,7 @@ let parse ~filename:filename =
     camera_data.resolution_x
     camera_data.resolution_y
     camera_data.focal_length
-    object3D_list
-    (List.map (fun o -> o#collider) object3D_list )
+    objects
+    (List.map (fun o -> o#collider) objects)
     lights
   in camera

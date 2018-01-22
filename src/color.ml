@@ -28,5 +28,4 @@ let color_tomato = new color 238. 92. 66.
 let color_black = new color 0. 0. 0.
 let color_white = new color 255. 255. 255.
 let color_orchid = new color 218. 112. 214.
-let color_black = new color 0. 0. 0.
 let color_olive = new color 142. 142. 56.
