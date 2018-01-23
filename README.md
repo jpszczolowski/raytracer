@@ -1,5 +1,5 @@
 # raytracer
-A raytracer written in OCaml. It can draw planes and spheres with diffuse-like surface and illuminate them with point & directional light.
+A raytracer written in OCaml. It can draw planes and spheres with diffuse surface and illuminate them with point & directional light.
 
 
 ### Example rendered scene
