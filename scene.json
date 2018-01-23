@@ -34,7 +34,7 @@
         {
             "type": "sphere",
             "color": "pink",
-            "shader": "mirror",
+            "shader": "diffuse",
             "data": [-9.0, 5.0, 17.0, 5.0]
         }
     ],

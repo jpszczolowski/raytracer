@@ -38,7 +38,7 @@ class camera (bottom_left_x : float) (bottom_left_y : float) (upper_right_x : fl
   method private color (x : int) (y : int) =
     let ray = self#ray_to_focus x y in
     match Raycaster.cast ray object3D_list with
-      | Some obj, Some point -> obj#color point object3D_list light_list ray#direction
+      | Some obj, Some point -> obj#color point collider_list light_list
       | _ -> color_black
 
   method plot_and_draw (pixel : int * int) (image : Image.image) =
