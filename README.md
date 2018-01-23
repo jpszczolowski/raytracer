@@ -21,7 +21,7 @@ You can set camera position, objects & lights in file `scene.json`. Feel free to
 
 Order of keys at this and lower levels of JSON matters and must be the same as in this specification.
 
-First level must have three keys: `camera`, `objects`, `lights`.
+First level must contain three keys: `camera`, `objects`, `lights`.
 
 #### 1. Camera
 A list of seven values:
